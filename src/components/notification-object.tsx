@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observable, action } from "mobx";
+import { observable, action, set, get, remove } from "mobx";
 import { observer } from "mobx-react";
 
 type ID = string | number;
@@ -16,23 +16,24 @@ class NotificationStore {
   @observable notifications: Notifications = {};
   id: number = 1;
 
-  constructor() {
-    setInterval(() => {
-      this.notifications;
-    }, 1000);
-  }
+  constructor() {}
 
   @action
   add(item: NotificationItem) {
-    this.notifications[this.id] = item;
+    // set(this.notifications, { [this.id]: item });
+    const id = `${this.id}`;
+    set(this.notifications, id, item);
     setTimeout(() => {
-      this.remove(this.id);
-    }, 1000);
+      this.remove(id);
+    }, 10000);
     this.id++;
   }
   @action
-  remove(id: ID) {
-    delete this.notifications[id];
+  remove(id: string) {
+    // delete this.notifications[id];
+    remove(this.notifications, id);
+    // delete this.notifications[`${id}`];
+    // delete this.notifications[`${id}`];
   }
 }
 
@@ -52,9 +53,18 @@ export class Notification extends React.Component<NotificationProps, {}> {
           .map(id => {
             const { title, message, onPress } = state.notifications[id];
             return (
-              <div onClick={onPress}>
-                <div>{title}</div>
-                <div>{message}</div>
+              <div key={id}>
+                <div onClick={onPress}>
+                  <div>{id + title}</div>
+                  <div>{message}</div>
+                </div>
+                <div
+                  onClick={() => {
+                    state.remove(id);
+                  }}
+                >
+                  remove
+                </div>
               </div>
             );
           })}

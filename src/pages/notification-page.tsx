@@ -11,9 +11,6 @@ export class NotificationPage extends React.Component<
     return (
       <div>
         <Notification notificationState={notificationState} />
-        <div>
-          <Notification notificationState={notificationState} />
-        </div>
       </div>
     );
   }

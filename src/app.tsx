@@ -7,6 +7,7 @@ import { TimerPage } from "./pages/timer-page";
 import DevTools from "mobx-react-devtools";
 import { history } from "./utils/history";
 import { AddNotification } from "./components/add-notification";
+import { NotificationObjectPage } from "./pages/notification-object-page";
 
 export interface AppProps {}
 interface AppState {}
@@ -14,7 +15,8 @@ interface AppState {}
 const routes = [
   { path: "/", label: "Home" },
   { path: "/timer", label: "Timer" },
-  { path: "/notification", label: "Notification" }
+  { path: "/notification", label: "Notification" },
+  { path: "/notification-obj", label: "Notification Object" }
 ];
 export class App extends React.Component<AppProps, AppState> {
   public render() {
@@ -30,6 +32,10 @@ export class App extends React.Component<AppProps, AppState> {
               <Route path="/" exact component={HomePage} />
               {/* <Route path="/timer" component={TimerPage} /> */}
               <Route path="/notification" component={NotificationPage} />
+              <Route
+                path="/notification-obj"
+                component={NotificationObjectPage}
+              />
             </Switch>
           </div>
           <DevTools />

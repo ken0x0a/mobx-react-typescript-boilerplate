@@ -16,11 +16,7 @@ class NotificationStore {
   @observable notifications: NotificationItem[] = [];
   id: number = 1;
 
-  constructor() {
-    setInterval(() => {
-      this.notifications;
-    }, 5000);
-  }
+  constructor() {}
 
   @action
   add(item: NotificationItem) {
@@ -47,8 +43,8 @@ export class Notification extends React.Component<NotificationProps, {}> {
     const { notificationState: state } = this.props;
     return (
       <div>
-        {state.notifications.map(({ title, message, onPress }) => (
-          <div onClick={onPress}>
+        {state.notifications.map(({ title, message, onPress }, i) => (
+          <div key={i} onClick={onPress}>
             <div>{title}</div>
             <div>{message}</div>
           </div>
